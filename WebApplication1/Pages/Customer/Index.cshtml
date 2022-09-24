@@ -1,0 +1,58 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebApplication1.Pages.Customer.IndexModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+
+    <body>
+<div>
+    <h1>Hello From Razor page</h1>
+    <h2>@DateTime.Now</h2>
+    <h5>@Model.Message</h5>
+
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+
+            <tr>
+                <th scope="row">1</th>
+                <td>@item.Firstname</td>
+                 <td>@item.Lastname</td>
+                 <td>@item.Email</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<form method="post">
+   Firstname :  <input asp-for="Student.Firstname" /> <br />
+   Lastname :  <input asp-for="Student.Lastname" /> <br />
+   Email <input asp-for="Student.Email" /> <br />
+   <input type="submit" value="Register"  />
+</form>
+
+
+</div>
+
+    </body>
+</html>
