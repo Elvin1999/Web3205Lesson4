@@ -3,21 +3,25 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using WebApplication1.Entities;
+using WebApplication1.Filters;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        [HandleException(ViewName ="Error",ExceptionType =typeof(DivideByZeroException))]
         public string Index()
         {
-            //throw new NullReferenceException("Some Error Occurred");
+            //throw new DivideByZeroException("Some Error Occurred");
             return "Hello from Index action";
         }
-
+        [HandleException(ViewName = "NullReferenceException", ExceptionType = typeof(NullReferenceException))]
         public ViewResult Index2()
         {
+            //throw new NullReferenceException("Some Error Occurred");
             return View();
         }
 

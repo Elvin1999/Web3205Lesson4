@@ -36,12 +36,15 @@ namespace WebApplication1
 
             services.AddRazorPages();
 
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            env.EnvironmentName = "Production";
+            //env.EnvironmentName = "Production";
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +57,8 @@ namespace WebApplication1
                 app.UseHsts();
             }
 
+
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -69,12 +74,20 @@ namespace WebApplication1
             //    //endpoints.MapRazorPages();
             //    //endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
         }
 
         private void ConfigureRoute(IEndpointRouteBuilder routeBuilder)
         {
             routeBuilder.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
-            routeBuilder.MapControllerRoute(name: "myroute", pattern: "Admin/{controller=Employee}/{action=Add}/{id?}");
+            //routeBuilder.MapControllerRoute(name: "myroute", pattern: "Admin/{controller=Employee}/{action=Add}/{id?}");
+
         }
     }
 }
